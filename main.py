@@ -98,9 +98,8 @@ try:
 
             browser.get(f"https://www.showcasingcreators.com/suggest-channel/admin?admin={os.environ.get('ADMIN')}")
 
-
-            time.sleep(3)
-            print(browser.page_source)
+            # time.sleep(3)
+            # print(browser.page_source)
 
             print("input description")
             inputDescription = browser.find_element_by_id("channelDescription")
@@ -141,7 +140,7 @@ try:
             browser.get(f"https://www.showcasingcreators.com/suggest-channel/admin/show?admin={os.environ.get('ADMIN')}")
 
             # time.sleep(3)
-            print("deleting suggestion")
+            print("deleting suggestion...")
             browser.find_element_by_id("admin-password").send_keys(f"{os.environ.get('ADMIN')}")
             browser.find_element_by_id(suggestion.id).click()
             browser.find_element_by_id("admin-password").clear()
