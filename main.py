@@ -8,12 +8,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
-# channel = input('enter channel videos url: ')
-# channel = channel.split("/")
-# channel = channel[0] + "//" + channel[2] + "/" + channel[3] + "/" + channel[4]
-
-# print(channel)
-
 # browser = webdriver.Safari()
 # browser = webdriver.Firefox()
 
@@ -37,7 +31,7 @@ class Suggestion:
 
 
 try:
-    browser.get(f"https://www.showcasingcreators.com/suggest-channel/admin/show?admin={os.environ.get('ADMIN')}")
+    browser.get(f"https://www.showcasingcreators.com/suggest-channel/admin/show?admin={os.environ.get('ADMIN')}")    
 
     ids = browser.find_elements_by_css_selector("button.btn.btn-outline-danger")
     urls = browser.find_elements_by_css_selector(".url")
@@ -51,19 +45,35 @@ try:
 
     for eachIds in ids:
         # print(eachIds.get_attribute("id"))
-        idsArray.append(eachIds.get_attribute("id"))
+        try:
+            idsArray.append(eachIds.get_attribute("id"))
+        except Exception as e:
+            print(e)
+            continue
 
     for eachUrl in urls:
         # print(eachUrl.text)
-        # eachUrl = eachUrl.text.split("/")
-        # eachUrl = eachUrl[0] + "//" + eachUrl[2] + "/" + eachUrl[3] + "/" + eachUrl[4]
-        urlArray.append(eachUrl.text)
+        try:
+            eachUrl = eachUrl.text.split("/")
+            eachUrl = "https://www.youtube.com/" + eachUrl[3] + "/" + eachUrl[4]
+            urlArray.append(eachUrl)
+        except Exception as e:
+            print(e)
+            continue
     for eachCategory in categories:
         # print(eachCategory.text)
-        categoryArray.append(eachCategory.text)
+        try:
+            categoryArray.append(eachCategory.text)
+        except Exception as e:
+            print(e)
+            continue
     for eachTags in tags:
         # print(eachTags.text)
-        tagsArray.append(eachTags.text)
+        try:
+            tagsArray.append(eachTags.text)
+        except Exception as e:
+            print(e)
+            continue
     
     print(idsArray)
     print(urlArray)
@@ -73,8 +83,12 @@ try:
     suggestionObjects = []
 
     for index, url in enumerate(urlArray):
-        item = Suggestion(url, categoryArray[index], tagsArray[index], idsArray[index])
-        suggestionObjects.append(item)
+        try:
+            item = Suggestion(url, categoryArray[index], tagsArray[index], idsArray[index])
+            suggestionObjects.append(item)
+        except Exception as e:
+            print(e)
+            continue
 
     for suggestion in suggestionObjects:
         try:
@@ -102,7 +116,7 @@ try:
             # print(browser.page_source)
 
             print("input description")
-            inputDescription = browser.find_element_by_id("channelDescription")
+            inputDescription = browser.find_element_by_xpath("//*[@id='channelDescription']")
             inputDescription.clear()
             inputDescription.send_keys(description)
 
