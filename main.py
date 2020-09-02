@@ -62,7 +62,7 @@ try:
                 modUrl[3] + "/" + modUrl[4]
             urlArray.append(modUrl)
         except Exception as e:
-            urlArray.append(eachUrl.strip())
+            urlArray.append(eachUrl.text.strip())
             print(e)
             continue
     for eachCategory in categories:
