@@ -153,7 +153,7 @@ try:
             print("inputting password...")
             inputPassword = browser.find_element_by_id("admin")
             inputPassword.clear()
-            inputPassword.send_keys(f"{os.environ.get('ADMIN')}")
+            inputPassword.send_keys(f"{os.environ.get('ADMIN2')}")
 
             browser.find_element_by_id("saveChannel").click()
 
@@ -166,7 +166,7 @@ try:
 
                 print("deleting suggestion...")
                 browser.find_element_by_id(
-                    "admin-password").send_keys(f"{os.environ.get('ADMIN')}")
+                    "admin-password").send_keys(f"{os.environ.get('ADMIN2')}")
                 browser.find_element_by_id(suggestion.id).click()
                 browser.find_element_by_id("admin-password").clear()
 
