@@ -127,7 +127,11 @@ try:
             inputDescription = browser.find_element_by_xpath(
                 "//*[@id='channelDescription']")
             inputDescription.clear()
-            inputDescription.send_keys(description)
+            if description:
+                inputDescription.send_keys(description)
+            else:
+                inputDescription.send_keys(
+                    "this channel does not have a description")
 
             print("inputting channel url...")
             inputUrl = browser.find_element_by_id("channelUrl")
